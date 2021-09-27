@@ -14,11 +14,11 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     IBEP20 public MAT;
 
-    uint256 public TGE_RELEASE = 10;
-    // uint256 public TGE_CLIFF = 2592000; //30 days
-    uint256 public TGE_CLIFF = 600; //10 mins for testing
-    // uint256 public VESTING_DURATION = 86400 * 30 * 12; //12 months
-    uint256 public VESTING_DURATION = 3600; //1 hour for testing
+    uint256 public TGE_RELEASE = 15;
+    uint256 public TGE_CLIFF = 86400 * 30 * 2; //2 months
+    // uint256 public TGE_CLIFF = 600; //10 mins for testing
+    uint256 public VESTING_DURATION = 86400 * 30 * 15; //15 months
+    // uint256 public VESTING_DURATION = 3600; //1 hour for testing
     uint256 public MAT_PRICE = 10; //0.1 - 2 decimal
 
     uint256 public startTime;
@@ -55,7 +55,7 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
 
         stage = 1;
 
-        //transfer 10% for whilelists;
+        //transfer 15% for whilelists;
         for (uint256 i = 0; i < whilelists.length; i++) {
             uint256 matAmount = (locks[whilelists[i]] * TGE_RELEASE) / 100;
             locks[whilelists[i]] -= matAmount;
