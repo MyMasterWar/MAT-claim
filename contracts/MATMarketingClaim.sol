@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
-/*
-15% at TGE, then linear vesting over the next 24 months				
-*/
+
 pragma solidity 0.8.6;
 
 import "./ReentrancyGuard.sol";
@@ -14,8 +12,7 @@ contract MATMarketingClaim is Ownable, ReentrancyGuard {
     IBEP20 public MAT;
 
     uint256 public TGE_RELEASE = 15;
-    // uint256 public VESTING_DURATION = 86400 * 30 * 24; //24 months
-    uint256 public VESTING_DURATION = 3600; //1 hour for testing
+    uint256 public VESTING_DURATION = 86400 * 30 * 24; //24 months
 
     uint256 public startTime;
     uint256 public endTime;
@@ -23,7 +20,7 @@ contract MATMarketingClaim is Ownable, ReentrancyGuard {
     uint8 public stage;
 
     address public constant MARKETING_ADDRESS =
-        0x7b2D3db18b030D7F17FC9824b18bC056786beCF8;
+        0xa48f87AA888d9a341140562e8c094dE45b62fE90;
     uint256 lock;
     uint256 released;
 
@@ -35,7 +32,7 @@ contract MATMarketingClaim is Ownable, ReentrancyGuard {
         lock = 10500000000000000000000000; //10,500,000 MAT
     }
 
-    function setTgeTime(uint256 _tge) public onlyOwner {
+    function setTgeTime(uint256 _tge) external onlyOwner {
         require(stage == 0, "Can not setup tge");
         startTime = _tge;
         endTime = startTime + VESTING_DURATION;

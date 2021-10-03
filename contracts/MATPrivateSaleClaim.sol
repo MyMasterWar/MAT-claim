@@ -15,10 +15,8 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
     IBEP20 public MAT;
 
     uint256 public TGE_RELEASE = 15;
-    uint256 public TGE_CLIFF = 86400 * 30 * 2; //2 months
-    // uint256 public TGE_CLIFF = 600; //10 mins for testing
+    uint256 public TGE_CLIFF = 86400 * 30 * 3; //3 months
     uint256 public VESTING_DURATION = 86400 * 30 * 15; //15 months
-    // uint256 public VESTING_DURATION = 3600; //1 hour for testing
     uint256 public MAT_PRICE = 10; //0.1 - 2 decimal
 
     uint256 public startTime;
@@ -49,7 +47,7 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
         _;
     }
 
-    function setTgeTime(uint256 _tge) public canSetup onlyOwner {
+    function setTgeTime(uint256 _tge) external canSetup onlyOwner {
         startTime = _tge + TGE_CLIFF;
         endTime = startTime + VESTING_DURATION;
 
@@ -64,7 +62,7 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
     }
 
     function setWhilelist(address[] calldata _users, uint256[] calldata _busds)
-        public
+        external
         canSetup
         onlyOwner
     {
@@ -128,7 +126,7 @@ contract MATPrivateSaleClaim is Ownable, ReentrancyGuard {
 
     //For FE
     function infoWallet(address _user)
-        public
+        external
         view
         returns (
             uint256,

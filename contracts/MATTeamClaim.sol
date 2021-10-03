@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
-/*
-Unlock over 60 months							
-*/
+
 pragma solidity 0.8.6;
 
 import "./ReentrancyGuard.sol";
@@ -13,10 +11,8 @@ contract MATTeamClaim is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     IBEP20 public MAT;
 
-    // uint256 public FULL_LOCK = 86400 * 30 * 6; //6 months
-    uint256 public FULL_LOCK = 120; //2 mins for testing
-    // uint256 public VESTING_DURATION = 86400 * 30 * 18; //18 months
-    uint256 public VESTING_DURATION = 600; //10 mins for testing
+    uint256 public FULL_LOCK = 86400 * 30 * 6; //6 months
+    uint256 public VESTING_DURATION = 86400 * 30 * 18; //18 months
 
     uint256 public startTime;
     uint256 public endTime;
@@ -24,7 +20,7 @@ contract MATTeamClaim is Ownable, ReentrancyGuard {
     uint8 public stage;
 
     address public constant TEAM_ADVISOR_ADDRESS =
-        0xa40D031bcC37E79dA4d38e1Ec868e214a1bc54Fc;
+        0xda9D2d8e320f4C05e41C0ACEb92B89F1c347BFeA;
     uint256 lock;
     uint256 released;
 
@@ -33,10 +29,10 @@ contract MATTeamClaim is Ownable, ReentrancyGuard {
     constructor(IBEP20 _mat) {
         MAT = IBEP20(_mat);
         stage = 0;
-        lock = 20000000000000000000000000; //15,000,000 MAT
+        lock = 20000000000000000000000000; //20,000,000 MAT
     }
 
-    function setTgeTime(uint256 _tge) public onlyOwner {
+    function setTgeTime(uint256 _tge) external onlyOwner {
         require(stage == 0, "Can not setup tge");
         startTime = _tge + FULL_LOCK;
         endTime = startTime + VESTING_DURATION;

@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
-/*
-Unlock over 60 months							
-*/
+
 pragma solidity 0.8.6;
 
 import "./ReentrancyGuard.sol";
@@ -13,25 +11,19 @@ contract MATEcosystemClaim is Ownable, ReentrancyGuard {
     using SafeMath for uint256;
     IBEP20 public MAT;
 
-    // uint256 public VESTING_FIRST_DURATION = 86400 * 30; //1 month
-    uint256 public constant VESTING_FIRST_DURATION = 1800; //30 mons for testing
-    // uint256 public VESTING_SECOND_DURATION = 86400 * 30 *36; //36 months
-    uint256 public constant VESTING_SECOND_DURATION = 3600; //1 hour months
+    uint256 public VESTING_FIRST_DURATION = 86400 * 30; //1 month
+    uint256 public VESTING_SECOND_DURATION = 86400 * 30 *36; //36 months
 
     uint256 public constant RELEASE_FIRST_DURATION = 5;
 
     uint256 public startTimeFirst;
     uint256 public endTimeFirst;
-    // uint256 public startTimeSecond;
     uint256 public endTimeSecond;
 
     uint8 public stage;
 
     address public ECOSYSTEM_ADDRESS =
-        0x83e9af907958d775385Eb24fb2716199329536Df;
-
-    // address public ECOSYSTEM_ADDRESS =
-    //     0x329e5Ef459F76630a2208C6d74e057c7295159a1;
+        0xfd22D86bE8C45082C225741F152Cbac7003D145e;
 
     uint256 lock;
     uint256 released;
@@ -44,7 +36,7 @@ contract MATEcosystemClaim is Ownable, ReentrancyGuard {
         lock = 25000000000000000000000000; //25,000,000 MAT
     }
 
-    function setTgeTime(uint256 _tge) public onlyOwner {
+    function setTgeTime(uint256 _tge) external onlyOwner {
         require(stage == 0, "Can not setup tge");
         startTimeFirst = _tge;
         endTimeFirst = startTimeFirst + VESTING_FIRST_DURATION;
